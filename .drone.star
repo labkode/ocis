@@ -195,18 +195,12 @@ def getEosSetup():
         'EOS_QDB_CLUSTER_ID': "3d659c1a-e70f-43f0-bed4-941a2ca0765b",
         'EOS_QDB_NODES': "quark-1:7777,quark-2:7777,quark-3:7777",
       },
-      'tty': True,
-      'privileged': True,
-      'stdin_open': True,
     },
     {
       'name': 'quark-2',
       'image': 'owncloud/eos-qdb',
       'pull': 'always',
       'detach': True,
-      'tty': True,
-      'privileged': True,
-      'stdin_open': True,
       'environment': {
         'EOS_QDB_DIR': "/var/lib/quarkdb/eosns",
         'EOS_QDB_PORT': "7777",
@@ -220,9 +214,6 @@ def getEosSetup():
       'image': 'owncloud/eos-qdb',
       'pull': 'always',
       'detach': True,
-      'tty': True,
-      'privileged': True,
-      'stdin_open': True,
       'environment': {
         'EOS_QDB_DIR': "/var/lib/quarkdb/eosns",
         'EOS_QDB_PORT': "7777",
@@ -236,9 +227,6 @@ def getEosSetup():
       'image': 'owncloud/eos-mgm',
       'pull': 'always',
       'detach': True,
-      'tty': True,
-      'privileged': True,
-      'stdin_open': True,
       'environment': {
         'EOS_SET_MASTER': 1,
         'EOS_MQ_URL': 'mq-master',
@@ -260,9 +248,6 @@ def getEosSetup():
       'image': 'owncloud/eos-mq',
       'pull': 'always',
       'detach': True,
-      'tty': True,
-      'privileged': True,
-      'stdin_open': True,
       'environment': {
         'EOS_SET_MASTER': 1,
         'EOS_MQ_URL': 'mq-master',
@@ -284,9 +269,6 @@ def getEosSetup():
       'image': 'owncloud/eos-fst',
       'pull': 'always',
       'detach': True,
-      'tty': True,
-      'privileged': True,
-      'stdin_open': True,
       'environment': {
         'EOS_SET_MASTER': 1,
         'EOS_MQ_URL': 'mq-master',
@@ -316,9 +298,6 @@ def getEosSetup():
       'image': 'owncloud/eos-ocis',
       'pull': 'always',
       'detach': True,
-      'tty': True,
-      'privileged': True,
-      'stdin_open': True,
       'environment': {
         'EOS_MGM_URL': "root://mgm-master:1094",
         'KONNECTD_IDENTIFIER_REGISTRATION_CONF': "/etc/ocis/identifier-registration.yml",
