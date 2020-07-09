@@ -50,6 +50,7 @@ def main(ctx):
     linting(ctx),
     unitTests(ctx),
     apiTests(ctx, 'master', 'a3cac3dad60348fc962d1d8743b202bc5f79596b'),
+    eosTests(ctx, 'master', 'a3cac3dad60348fc962d1d8743b202bc5f79596b'),
   ] + acceptance(ctx, 'master', 'f9a0874dc016ee0269c698914ef3f2c75ce3e2e6')
 
   stages = [
@@ -169,6 +170,83 @@ def unitTests(ctx):
             'from_secret': 'codacy_token',
           },
         },
+      },
+    ],
+    'trigger': {
+      'ref': [
+        'refs/heads/master',
+        'refs/tags/**',
+        'refs/pull/**',
+      ],
+    },
+  }
+  
+def getEosSetup():
+  return [
+    {
+      'name': 'ocis-server',
+      'image': 'tiangolo/docker-with-compose',
+      'pull': 'always',
+      'detach': True,
+      'commands': [
+        'sudo apt install git -y',
+        'git clone https://github.com/owncloud-docker/compose-playground.git',
+        'cd compose-playground/examples/eos-compose-acceptance-tests',
+        './build',
+        'docker-compose up -d'
+      ],
+      'volumes': [
+        {
+          'name': 'gopath',
+          'path': '/srv/app'
+        },
+      ]
+    },
+  ]
+
+def eosTests(ctx, coreBranch = 'master', coreCommit = ''):
+  return {
+    'kind': 'pipeline',
+    'type': 'docker',
+    'name': 'eos-apiTests',
+    'platform': {
+      'os': 'linux',
+      'arch': 'amd64',
+    },
+    'steps':
+      getEosSetup() +
+      [{
+        'name': 'oC10APIAcceptanceTests',
+        'image': 'owncloudci/php:7.2',
+        'pull': 'always',
+        'environment' : {
+          'TEST_SERVER_URL': 'http://ocis-server:9140',
+          'OCIS_REVA_DATA_ROOT': '/srv/app/tmp/reva/',
+          'SKELETON_DIR': '/srv/app/tmp/testing/data/apiSkeleton',
+          'TEST_EXTERNAL_USER_BACKENDS':'true',
+          'REVA_LDAP_HOSTNAME':'ldap',
+          'TEST_OCIS':'true',
+          'BEHAT_FILTER_TAGS': '~@skipOnOcis&&~@skipOnOcis-OC-Storage',
+        },
+        'commands': [
+          'git clone -b master --depth=1 https://github.com/owncloud/testing.git /srv/app/tmp/testing',
+          'git clone -b %s --single-branch --no-tags https://github.com/owncloud/core.git /srv/app/testrunner' % (coreBranch),
+          'cd /srv/app/testrunner',
+        ] + ([
+          'git checkout %s' % (coreCommit)
+        ] if coreCommit != '' else []) + [
+          'make test-acceptance-api',
+        ],
+        'volumes': [{
+          'name': 'gopath',
+          'path': '/srv/app',
+        }]
+      },
+    ],
+    'volumes': [
+      {
+        'name': 'gopath',
+        'temp': {},
       },
     ],
     'trigger': {
