@@ -193,17 +193,11 @@ def getEosSetup():
         'EOS_QDB_PORT': "7777",
         'EOS_QDB_MODE': "raft",
         'EOS_QDB_CLUSTER_ID': "3d659c1a-e70f-43f0-bed4-941a2ca0765b",
-        'EOS_QDB_NODES': "quark-1.testnet:7777,quark-2.testnet:7777,quark-3.testnet:7777",
+        'EOS_QDB_NODES': "quark-1:7777,quark-2:7777,quark-3:7777",
       },
       'tty': True,
       'privileged': True,
       'stdin_open': True,
-      'volumes': [
-        {
-          'name': 'qdb1',
-          'path': '/var/lib/quarkdb'
-        },
-      ]
     },
     {
       'name': 'quark-2',
@@ -218,15 +212,8 @@ def getEosSetup():
         'EOS_QDB_PORT': "7777",
         'EOS_QDB_MODE': "raft",
         'EOS_QDB_CLUSTER_ID': "3d659c1a-e70f-43f0-bed4-941a2ca0765b",
-        'EOS_QDB_NODES': "quark-1.testnet:7777,quark-2.testnet:7777,quark-3.testnet:7777",
+        'EOS_QDB_NODES': "quark-1:7777,quark-2:7777,quark-3:7777",
       },
-
-      'volumes': [
-        {
-          'name': 'qdb2',
-          'path': '/var/lib/quarkdb'
-        },
-      ]
     },
     {
       'name': 'quark-3',
@@ -241,15 +228,8 @@ def getEosSetup():
         'EOS_QDB_PORT': "7777",
         'EOS_QDB_MODE': "raft",
         'EOS_QDB_CLUSTER_ID': "3d659c1a-e70f-43f0-bed4-941a2ca0765b",
-        'EOS_QDB_NODES': "quark-1.testnet:7777,quark-2.testnet:7777,quark-3.testnet:7777",
+        'EOS_QDB_NODES': "quark-1:7777,quark-2:7777,quark-3:7777",
       },
-
-      'volumes': [
-        {
-          'name': 'qdb3',
-          'path': '/var/lib/quarkdb'
-        },
-      ]
     },
     {
       'name': 'mgm-master',
@@ -261,10 +241,10 @@ def getEosSetup():
       'stdin_open': True,
       'environment': {
         'EOS_SET_MASTER': 1,
-        'EOS_MQ_URL': 'mq-master.testnet',
-        'EOS_MGM_ALIAS': 'mgm-master.testnet',
-        'EOS_QDB_NODES': 'quark-1.testnet:7777 quark-2.testnet:7777 quark-3.testnet:7777',
-        'EOS_LDAP_HOST': 'ldap.testnet:389',
+        'EOS_MQ_URL': 'mq-master',
+        'EOS_MGM_ALIAS': 'mgm-master',
+        'EOS_QDB_NODES': 'quark-1:7777 quark-2:7777 quark-3:7777',
+        'EOS_LDAP_HOST': 'ldap:389',
         'EOS_GEOTAG': 'test',
         'EOS_INSTANCE_NAME': 'eostest',
         'EOS_MAIL_CC': 'eos@localhost',
@@ -274,20 +254,6 @@ def getEosSetup():
         'EOS_SYNCTIME_ACCOUNTING': 1,
         'EOS_UTF8': 1,
       },
-      'volumes': [
-        {
-          'name': 'eoslogs',
-          'path': '/var/eos/logs'
-        },
-        {
-          'name': 'eosconfig',
-          'path': '/var/eos/config'
-        },
-        {
-          'name': 'eosnq',
-          'path': '/var/eos/ns-queue'
-        },
-      ]
     },
     {
       'name': 'mq-master',
@@ -299,10 +265,10 @@ def getEosSetup():
       'stdin_open': True,
       'environment': {
         'EOS_SET_MASTER': 1,
-        'EOS_MQ_URL': 'mq-master.testnet',
-        'EOS_MGM_ALIAS': 'mgm-master.testnet',
-        'EOS_QDB_NODES': 'quark-1.testnet:7777 quark-2.testnet:7777 quark-3.testnet:7777',
-        'EOS_LDAP_HOST': 'ldap.testnet:389',
+        'EOS_MQ_URL': 'mq-master',
+        'EOS_MGM_ALIAS': 'mgm-master',
+        'EOS_QDB_NODES': 'quark-1:7777 quark-2:7777 quark-3:7777',
+        'EOS_LDAP_HOST': 'ldap:389',
         'EOS_GEOTAG': 'test',
         'EOS_INSTANCE_NAME': 'eostest',
         'EOS_MAIL_CC': 'eos@localhost',
@@ -312,20 +278,6 @@ def getEosSetup():
         'EOS_SYNCTIME_ACCOUNTING': 1,
         'EOS_UTF8': 1,
       },
-      'volumes': [
-        {
-          'name': 'eoslogs',
-          'path': '/var/eos/logs'
-        },
-        {
-          'name': 'eosconfig',
-          'path': '/var/eos/config'
-        },
-        {
-          'name': 'eosnq',
-          'path': '/var/eos/ns-queue'
-        },
-      ]
     },
     {
       'name': 'eos-fst',
@@ -337,10 +289,10 @@ def getEosSetup():
       'stdin_open': True,
       'environment': {
         'EOS_SET_MASTER': 1,
-        'EOS_MQ_URL': 'mq-master.testnet',
-        'EOS_MGM_ALIAS': 'mgm-master.testnet',
-        'EOS_QDB_NODES': 'quark-1.testnet:7777 quark-2.testnet:7777 quark-3.testnet:7777',
-        'EOS_LDAP_HOST': 'ldap.testnet:389',
+        'EOS_MQ_URL': 'mq-master',
+        'EOS_MGM_ALIAS': 'mgm-master',
+        'EOS_QDB_NODES': 'quark-1:7777 quark-2:7777 quark-3:7777',
+        'EOS_LDAP_HOST': 'ldap:389',
         'EOS_GEOTAG': 'test',
         'EOS_INSTANCE_NAME': 'eostest',
         'EOS_MAIL_CC': 'eos@localhost',
@@ -349,14 +301,10 @@ def getEosSetup():
         'EOS_NS_ACCOUNTING': 1,
         'EOS_SYNCTIME_ACCOUNTING': 1,
         'EOS_UTF8': 1,
-        'EOS_MGM_URL': "root://mgm-master.testnet",
+        'EOS_MGM_URL': "root://mgm-master",
         'LUKSPASSPHRASE': "just-some-rubbish-to-make-sure-fst-entrypoint-does-not-crash",
       },
       'volumes': [
-        {
-          'name': 'eoslogs',
-          'path': '/var/eos/logs'
-        },
         {
           'name': 'eosdisks',
           'path': '/disks'
@@ -372,7 +320,7 @@ def getEosSetup():
       'privileged': True,
       'stdin_open': True,
       'environment': {
-        'EOS_MGM_URL': "root://mgm-master.testnet:1094",
+        'EOS_MGM_URL': "root://mgm-master:1094",
         'KONNECTD_IDENTIFIER_REGISTRATION_CONF': "/etc/ocis/identifier-registration.yml",
         'KONNECTD_ISS': "https://ocis:9200",
         'KONNECTD_LOG_LEVEL': "debug",
@@ -395,8 +343,8 @@ def getEosSetup():
         'REVA_STORAGE_HOME_DRIVER': "eoshome",
         'REVA_STORAGE_HOME_MOUNT_ID': "1284d238-aa92-42ce-bdc4-0b0000009158",
         'REVA_STORAGE_HOME_DATA_DRIVER': "eoshome",
-        'REVA_STORAGE_EOS_MASTER_URL': "root://mgm-master.testnet:1094",
-        'REVA_STORAGE_EOS_SLAVE_URL': "root://mgm-master.testnet:1094",
+        'REVA_STORAGE_EOS_MASTER_URL': "root://mgm-master:1094",
+        'REVA_STORAGE_EOS_SLAVE_URL': "root://mgm-master:1094",
         'REVA_STORAGE_EOS_NAMESPACE': "/eos/dockertest/reva/users",
         'REVA_STORAGE_EOS_LAYOUT': "{{.Username}}",
         'DAV_FILES_NAMESPACE': "/eos/",
@@ -455,10 +403,16 @@ def eosTests(ctx, coreBranch = 'master', coreCommit = ''):
         ] if coreCommit != '' else []) + [
           'make test-acceptance-api',
         ],
-        'volumes': [{
-          'name': 'gopath',
-          'path': '/srv/app',
-        }]
+        'volumes': [
+          {
+            'name': 'gopath',
+            'path': '/srv/app',
+          },
+          {
+            'name': 'eosdisks',
+            'path': '/e/disks',
+          },
+        ]
       },
     ],
     'volumes': [
@@ -467,46 +421,9 @@ def eosTests(ctx, coreBranch = 'master', coreCommit = ''):
         'temp': {},
       },
       {
-        'name': 'eoslogs',
-        'host': {
-          'path': '/e/master/var/log/eos'
-        }
-      },
-      {
-        'name': 'eosconfig',
-        'host': {
-          'path': '/e/master/var/eos/config'
-        }      
-      },
-      {
-        'name': 'eosnq',
-        'host': {
-          'path': '/e/master/var/eos/ns-queue'
-        } 
-      },
-      {
         'name': 'eosdisks',
-        'host': {
-          'path': '/e/disks'
-        }
-      },
-      {
-        'name': 'qdb1',
-        'host': {
-          'path': '/e/quark-1/var/lib/quarkdb'
-        }
-      },
-      {
-        'name': 'qdb2',
-        'host': {
-          'path': '/e/quark-2/var/lib/quarkdb'
-        }      },
-      {
-        'name': 'qdb3',
-        'host': {
-          'path': '/e/quark-3/var/lib/quarkdb'
-        }
-      },
+        'temp': {},
+      }
     ],
     'trigger': {
       'ref': [
