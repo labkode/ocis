@@ -150,3 +150,20 @@ If you want to work on a specific issue
 ### Notes
 - in a normal case the test-code cleans up users after the test-run, but if a test-run is interrupted (e.g. by CTRL+C) users might have been left on the LDAP server. In that case rerunning the tests requires wiping the users in the ldap server, otherwise the tests will fail when trying to populate the users.
 - the tests usually create users in the OU `TestUsers` with usernames specified in the feature file. If not defined in the feature file, most users have the password `123456`, defined by `regularUserPassword` in `behat.yml`, but other passwords are also used, see [`\FeatureContext::getPasswordForUser()`](https://github.com/owncloud/core/blob/master/tests/acceptance/features/bootstrap/FeatureContext.php#L386) for mapping and [`\FeatureContext::__construct`](https://github.com/owncloud/core/blob/master/tests/acceptance/features/bootstrap/FeatureContext.php#L1668) for the password definitions.
+
+## Acceptance Tests In CI
+In the CI we run the existing API tests from oc10 in various repos. Since the tests are in the oc10 core repo, we use the commit IDs from core to indicate which version of tests to run in the CI. The commit IDs need to be frequently updated to have all the new tests running because new tests are constantly being added in the core repo.
+
+We run the API tests from core in following repos.
+
+### 1. ocis Repo
+In the `owncloud/ocis` repo the tests from the core are executed by cloning a specific version of the test runner. The commit id of the version can be specified in the `.drone.star` file in ocis.
+```
+apiTests(ctx, 'master', 'a3cac3dad60348fc962d1d8743b202bc5f79596b')
+```
+if the version you want to run is on the different branch from master, you also need to change the branch name.
+
+In order to check if new tests are compatible with OCIS, after changing the commit id and the branch name, we can create a draft PR in ocis which trigger's the CI and we can see the result there.
+
+### 2. ocis-reva Repo
+We follow the same approach in the ocis-reva repo too. In order to run the API tests in CI we use commit Ids which can be changed in the `.drone.star` file just like we did in ocis repo.
